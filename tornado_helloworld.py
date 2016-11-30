@@ -21,9 +21,10 @@ class QueryNumberHandler(tornado.web.RequestHandler):
         else:
             res = {}
             res['number'] = self.request.arguments['number']
-            if len(res['number']) == 1 and self.request.arguments['number'] == ['10086']:
+            if len(res['number']) == 1:
                 res['number'] = res['number'][0]
-                res['tag'] = '中国移动客服'
+                if self.request.arguments['number'] == ['10086']:
+                    res['tag'] = '中国移动客服'
         self.write(json.dumps(res))
 
 def make_app():
